@@ -1,0 +1,49 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+#define MAX_NUM_LEN 100
+
+void strrev(char *s1, char *n1)
+{
+    int i, len;
+
+    len = strlen(s1) -1;
+    for (i = 0; i <= len; i++) {
+        n1[i] = s1[len - i];
+    }
+    n1[i] = '\0';
+
+}
+int main()
+{
+    char n1[MAX_NUM_LEN];
+    char n2[MAX_NUM_LEN];
+    char res[MAX_NUM_LEN];
+
+    char s1[MAX_NUM_LEN];
+    char s2[MAX_NUM_LEN];
+    
+    scanf("%s", s1); 
+    scanf("%s", s2); 
+
+    strrev(s1, n1);
+    strrev(s2, n2);
+
+#ifdef DEBUG
+    printf("%s \n", n1);
+    printf("%s \n", n2);
+#endif
+    int i, carry;
+    i = 0;
+    carry = 0;
+    while (n1[i] && n2[i]) {
+        r = (int)n1[i] + (int)n2[i] + carry;
+
+        res[i] = (char) (r%10);
+        carry = (char) (r/10);
+        i++;
+    }
+
+
+}
