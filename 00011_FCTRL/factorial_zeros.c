@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<string.h>
+
 unsigned long long factorial(unsigned long long num)
 {
     if (num == 1 || num == 0)
@@ -8,27 +9,40 @@ unsigned long long factorial(unsigned long long num)
     return (num  * factorial(num -1));
 }
 
+#if 1
 int fact_zeros(int num)
 {
-    int i, c, j, t;
-    
-    c = 0;
-    j = 1;
+    int n, m , x, c;
 
-    for (i = 5; i <= num; i+= 5, j++) {
-        if (j%5 == 0) {
-            t = i;
-            while(t >= 5) {
-                t = t/5;
-                c++;
-            }
-        } else {
+    c = 0;
+    m = 1;
+    n = num/5;
+    while (n >= 1) {
+        x = n - n/5;
+        c += x * m;
+        n /= 5;
+        m++;
+    }
+
+    return c;
+
+}
+#else
+int fact_zeros(int num)
+{
+    int i, c, t;
+    c = 0;
+    for (i = 5; i <= num; i+= 5) {
+        t = i;
+        while (t%5 == 0) {
+            t = t/5;
             c++;
         }
     }
     return c;
 
 }
+#endif
 
 int main()
 {
@@ -42,5 +56,5 @@ int main()
         printf("%d\n", fact_zeros(num));
         //printf("%llu\n", factorial(num));
     }
+    return 0;
 }
-
