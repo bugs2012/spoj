@@ -73,7 +73,7 @@ int main()
         scanf("%s", s);
         if (!strcmp(s, "*")) 
             break;
-        printf("%d", lcm(s));
+        printf("%d\n", lcm(s));
     }
     return 0;
 
