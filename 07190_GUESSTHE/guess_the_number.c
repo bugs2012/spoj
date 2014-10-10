@@ -6,6 +6,30 @@
 #define MAX_NUMS 30
 #define MAX_PRIMES 8
 int primes[MAX_PRIMES] = {2, 3, 5, 7, 11, 13, 17, 19};
+int pfactors[MAX_NUMS][MAX_PRIMES] =     {{0, 0, 0, 0, 0, 0, 0, 0},
+                                         {0, 0, 0, 0, 0, 0, 0, 0},
+                                         {1, 0, 0, 0, 0, 0, 0, 0},
+                                         {0, 1, 0, 0, 0, 0, 0, 0},
+                                         {2, 0, 0, 0, 0, 0, 0, 0},
+                                         {0, 0, 1, 0, 0, 0, 0, 0},
+                                         {1, 1, 0, 0, 0, 0, 0, 0},
+                                         {0, 0, 0, 1, 0, 0, 0, 0},
+                                         {3, 0, 0, 0, 0, 0, 0, 0},
+                                         {0, 2, 0, 0, 0, 0, 0, 0},
+                                         {1, 0, 1, 0, 0, 0, 0, 0},
+                                         {0, 0, 0, 0, 1, 0, 0, 0},
+                                         {2, 1, 0, 0, 0, 0, 0, 0},
+                                         {0, 0, 0, 0, 0, 1, 0, 0},
+                                         {1, 0, 0, 1, 0, 0, 0, 0},
+                                         {0, 1, 1, 0, 0, 0, 0, 0},
+                                         {4, 0, 0, 0, 0, 0, 0, 0},
+                                         {0, 0, 0, 0, 0, 0, 1, 0},
+                                         {1, 2, 0, 0, 0, 0, 0, 0},
+                                         {0, 0, 0, 0, 0, 0, 0, 1},
+                                         {2, 0, 1, 0, 0, 0, 0, 0},
+                                         };
+int max_factors[MAX_PRIMES] = {4, 2, 1, 1, 1, 1, 1, 1};
+int pfactor_index[MAX_NUMS] = {0 , 0, 1, 2, 1, 3, 2, 4, 1, 2, 3, 5, 2, 6, 4, 3, 1, 7, 2, 8, 3};   
 
 void update(int *gprimes, int *lprimes)
 {
@@ -19,56 +43,63 @@ void update(int *gprimes, int *lprimes)
 int lcm(char *s) 
 {
     int i, num, j, k;
+	int yes[MAX_NUMS], no[MAX_NUMS];
+	int yi, ni; 
     int n[MAX_NUMS] = {0};
     int gprimes[MAX_PRIMES] = {0};
-    int lprimes[MAX_PRIMES] = {0};
+    int *lprimes;
     int lcm;
 
     i = 1;
+	yi = 0;
+	ni = 0;
     while (*s) {
-        if (*s == 'N') {
-            i++;
-            s++;
-            continue;
-        }
-        n[i] = i;
-        num = i;
-        k = 0;
-        memset(lprimes, 0, sizeof(lprimes));
-        while (num != 1) {
-            if (num%primes[k] == 0) {
-                num = num/primes[k];
-                lprimes[k]++;
-            } else {
-                k++;
-            }
-        }
-        update(gprimes, lprimes);
-
-        i++;
+        /* Process string and look for valid numbers */
+        if (*s == 'N') 
+			no[ni++] = i;
+		else 
+			yes[yi++] = i;
+		i++;
         s++;
-    }
+	}
+	/* check for cheating */
+	if (ni > 0) {
+		if (yi == 0)
+			return -1;
+		for (i = 0; i < yi; i++) {
+			for (j = 0; j < ni; j++) { 
+				if (yes[i] % no[j] == 0)
+					return -1;
+			}
+		}
+	}
+	for (i = 0; i < yi; i++) {
+        num = yes[i];
+	    for (j = 0; j < pfactor_index[num]; j++) {
+		    if (pfactors[num][j] > gprimes[j])
+			    gprimes[j] = pfactors[num][j];
+		}
 
+    }
     lcm = 1;
     for (j = 0; j < MAX_PRIMES; j++) {
-        if (gprimes[j] != 0) {
-            lcm *= pow(primes[j], gprimes[j]);
-        }
+        lcm *= pow(primes[j], gprimes[j]);
     }
-
-    // Check for cheating
-    for (j = 1; j < i; j++) {
-        if ((lcm%j == 0) && (n[j] != j)) 
+#if 1
+    /* Check for cheating */
+    for (j = 0; j < ni; j++) {
+        if (lcm%no[j] == 0) 
             return -1;
     }
+#endif
     return lcm;
 
 
 }
 int main()
 {
-    char s[MAX_NUMS];
-    
+    char s[MAX_NUMS];                   //2  3  5  7 11 13 17 19       
+        
     while (1) {
         scanf("%s", s);
         if (!strcmp(s, "*")) 
