@@ -1,0 +1,69 @@
+SPOJ Problem Set (classical)
+21690. Power the Power Up
+Problem code: POWERUP
+==========================================================================================================
+
+Your younger brother's teacher gave him this simple problem.
+
+Given b and c. Evaluate the result of this expression:
+
+Result1 = bc
+
+Your brother definitely was able to solve this easy problem. So his teacher decided to give him a bit harder problem.
+
+Given a,b and c. Evaluate the result of this expression:
+
+Result1 = bc
+
+Result2 = aResult1
+
+However, your brother was also able to solve it. It was not that harder. His teacher was excited -though- and gave him this Bonus Programming Assignment.
+
+Write a program that is given a,b and c; calculates the value of Result2. Since the output may be exponentially very large, checking the correctness of solutions will be a bit subtle problem. So, instead of printing the whole value of Result2, just print the reaminder of dividing Result2 by 1,000,000,007 (109 + 7).
+
+Can you help him solve that task?
+==========================================================================================================
+
+Input
+-----
+
+The input consists of several test cases. Each case is on a single line. In each case, given three space separated integers a,b and c (0 <=a, b, c <= 231 - 1). The input is terminated by a = b = c =  - 1
+
+Output
+------
+
+For each case, print exactly one line containing the value of Result2 modulus 109 + 7
+
+
+Sample test(s)
+--------------
+
+Input
+
+2 2 2
+3 4 5
+-1 -1 -1
+
+
+Output
+
+16
+763327764
+
+
+
+Note
+-----------------------------------
+You can assume that 00 = 1.
+
+------------------------------------------------------------
+Added by:   Ahmed Salem [mrtempo]
+Date:   2014-11-06
+Time limit: 1s
+Source limit:   50000B
+Memory limit:   1536MB
+Cluster:    Cube (Intel Pentium G860 3GHz)
+Languages:  All except: SCM chicken
+Resource:   Palestinian Collegiate Programming Contest 2013
+------------------------------------------------------------
+
